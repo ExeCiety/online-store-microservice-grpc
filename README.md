@@ -1,8 +1,8 @@
 # Online Store Microservice (Go + gRPC + PostgreSQL)
 
-Backend microservice untuk toko online sederhana dengan arsitektur monorepo.
+A simple online store backend microservice project built in a monorepo architecture.
 
-## Arsitektur
+## Architecture
 
 ```text
 Client (HTTP/JSON)
@@ -32,7 +32,7 @@ Swagger UI: :8081
 - GORM
 - bcrypt
 
-## Struktur Project
+## Project Structure
 
 ```text
 .
@@ -48,50 +48,50 @@ Swagger UI: :8081
 └── README.md
 ```
 
-## Prasyarat
+## Prerequisites
 
 - Go >= 1.26
 - Docker + Docker Compose
 - Optional: `protoc`, `protoc-gen-go`, `protoc-gen-go-grpc`
 
-## Setup Cepat
+## Quick Setup
 
-1. Copy env:
+1. Copy environment file:
 
 ```bash
 cp .env.example .env
 ```
 
-2. Install dependency:
+2. Install dependencies:
 
 ```bash
 make tidy
 ```
 
-3. Jalankan infra (PostgreSQL + Swagger UI):
+3. Start infrastructure (PostgreSQL + Swagger UI):
 
 ```bash
 docker compose up -d
 ```
 
-4. Jalankan migration (idempotent, tanpa `psql` lokal):
+4. Run migrations (idempotent, no local `psql` required):
 
 ```bash
 make migrate-user
 make migrate-order
 ```
 
-Target migration akan otomatis membuat database jika belum ada.
+Migration targets will automatically create databases if they do not exist.
 
-5. (Optional) Generate proto:
+5. (Optional) Generate proto files:
 
 ```bash
 make proto
 ```
 
-## Menjalankan Service
+## Running Services
 
-### Opsi A: Go run (3 terminal)
+### Option A: Go run (3 terminals)
 
 ```bash
 make run-user
@@ -99,39 +99,39 @@ make run-order
 make run-gateway
 ```
 
-### Opsi B: Build binary lalu jalankan semua
+### Option B: Build binaries and run all
 
 ```bash
 make build
 make run-built
 ```
 
-Output binary ada di folder `bin/`:
+Built binaries are stored in `bin/`:
 - `bin/user-service`
 - `bin/order-service`
 - `bin/api-gateway`
 
 ## Testing
 
-- Jalankan semua test:
+- Run all tests:
 
 ```bash
 make test
 ```
 
-- Jalankan test endpoint API Gateway:
+- Run API Gateway endpoint tests only:
 
 ```bash
 make test-gateway
 ```
 
-- Jalankan semua test package:
+- Run all package tests directly:
 
 ```bash
 go test ./...
 ```
 
-Test endpoint dipisah per file di folder `api-gateway/tests/`.
+Endpoint tests are separated per file under `api-gateway/tests/`.
 
 ## Swagger
 
@@ -148,7 +148,7 @@ Test endpoint dipisah per file di folder `api-gateway/tests/`.
 - `GET /api/users/:userId/orders`
 - `GET /health`
 
-## Contoh Request
+## Example Requests
 
 ### Register User
 
@@ -182,8 +182,8 @@ curl -X GET http://localhost:8080/api/users/4e427d78-58c5-4f78-bfc1-e2c196e0b506
 
 ## Notes
 
-- Password disimpan sebagai hash bcrypt.
-- Komunikasi antar service menggunakan gRPC.
-- API Gateway stateless.
-- Sudah ada logging, validation, error handling, graceful shutdown.
-- JWT masih placeholder (dummy token pada login).
+- Passwords are stored using bcrypt hashing.
+- Inter-service communication uses gRPC.
+- API Gateway is stateless.
+- Logging, validation, error handling, and graceful shutdown are implemented.
+- JWT is still a placeholder (dummy token in login response).
