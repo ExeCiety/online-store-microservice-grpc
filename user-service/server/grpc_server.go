@@ -26,6 +26,7 @@ func NewGRPCServer(svc service.UserService, logger *log.Logger) *GRPCServer {
 func (s *GRPCServer) Register(ctx context.Context, req *userpb.RegisterRequest) (*userpb.RegisterResponse, error) {
 	resp, err := s.service.Register(ctx, req)
 	if err != nil {
+		s.logger.Printf("register failed: %v", err)
 		return nil, mapError(err)
 	}
 	return resp, nil
@@ -34,6 +35,7 @@ func (s *GRPCServer) Register(ctx context.Context, req *userpb.RegisterRequest) 
 func (s *GRPCServer) Login(ctx context.Context, req *userpb.LoginRequest) (*userpb.LoginResponse, error) {
 	resp, err := s.service.Login(ctx, req)
 	if err != nil {
+		s.logger.Printf("login failed: %v", err)
 		return nil, mapError(err)
 	}
 	return resp, nil
@@ -42,6 +44,7 @@ func (s *GRPCServer) Login(ctx context.Context, req *userpb.LoginRequest) (*user
 func (s *GRPCServer) GetUserById(ctx context.Context, req *userpb.GetUserByIdRequest) (*userpb.GetUserByIdResponse, error) {
 	resp, err := s.service.GetUserByID(ctx, req)
 	if err != nil {
+		s.logger.Printf("get user by id failed: %v", err)
 		return nil, mapError(err)
 	}
 	return resp, nil
