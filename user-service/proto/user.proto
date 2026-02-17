@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "online-store-microservice/proto/user;userpb";
+
+service UserService {
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  rpc Login(LoginRequest) returns (LoginResponse);
+  rpc GetUserById(GetUserByIdRequest) returns (GetUserByIdResponse);
+}
+
+message RegisterRequest {
+  string email = 1;
+  string password = 2;
+  string name = 3;
+}
+
+message UserData {
+  string id = 1;
+  string email = 2;
+  string name = 3;
+  string created_at = 4;
+  string updated_at = 5;
+}
+
+message RegisterResponse {
+  UserData user = 1;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  UserData user = 1;
+  string token = 2;
+}
+
+message GetUserByIdRequest {
+  string id = 1;
+}
+
+message GetUserByIdResponse {
+  UserData user = 1;
+}
